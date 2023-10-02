@@ -17,7 +17,6 @@ namespace ToDoListApp.Entities
                       MinimumLength = 6,
                       ErrorMessage = "El campo {0} requiere como mínimo {2} y máximo {1} caracteres")]
         [Display(Name = "Descripción")]
-
         public string Description { get; set; }
 
         [Display(Name = "Orden")]
@@ -26,5 +25,9 @@ namespace ToDoListApp.Entities
         [DataType(DataType.Date)]
         [Display(Name = "Fecha de Creación")]
         public DateTime CreationDate { get; set; }
+
+        public List<Step> Steps { get; set; }
+
+        public List<FileAttached> FileAttacheds { get; set; }
     }
 }
