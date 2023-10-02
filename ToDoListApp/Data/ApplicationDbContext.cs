@@ -11,5 +11,7 @@ namespace ToDoListApp.Data
         }
 
         public DbSet<TaskData> TaskDatas { get; set; }
+        public DbSet<Step> Steps { get; set; }
+        public DbSet<FileAttached> FileAttacheds { get; set; }
     }
 }

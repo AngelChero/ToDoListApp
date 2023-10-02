@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ToDoListApp.Data;
 
@@ -11,9 +12,11 @@ using ToDoListApp.Data;
 namespace ToDoListApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231002042612_Table_Step")]
+    partial class Table_Step
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,37 +24,6 @@ namespace ToDoListApp.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("ToDoListApp.Entities.FileAttached", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreationDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("Order")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TaskDataId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)");
-
-                    b.Property<string>("Url")
-                        .IsUnicode(true)
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("TaskDataId");
-
-                    b.ToTable("FileAttacheds");
-                });
 
             modelBuilder.Entity("ToDoListApp.Entities.Step", b =>
                 {
@@ -110,17 +82,6 @@ namespace ToDoListApp.Migrations
                     b.ToTable("TaskDatas");
                 });
 
-            modelBuilder.Entity("ToDoListApp.Entities.FileAttached", b =>
-                {
-                    b.HasOne("ToDoListApp.Entities.TaskData", "TaskData")
-                        .WithMany("FileAttacheds")
-                        .HasForeignKey("TaskDataId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("TaskData");
-                });
-
             modelBuilder.Entity("ToDoListApp.Entities.Step", b =>
                 {
                     b.HasOne("ToDoListApp.Entities.TaskData", "TaskData")
@@ -134,8 +95,6 @@ namespace ToDoListApp.Migrations
 
             modelBuilder.Entity("ToDoListApp.Entities.TaskData", b =>
                 {
-                    b.Navigation("FileAttacheds");
-
                     b.Navigation("Steps");
                 });
 #pragma warning restore 612, 618
